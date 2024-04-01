@@ -1,4 +1,5 @@
 import os
+import re
 import time
 from dotenv import load_dotenv
 from selenium import webdriver
@@ -150,7 +151,7 @@ if __name__ == '__main__':
         groups = [group.strip() for group in groups]
 
         for group in groups:
-            if not group.startswith('https://www.meetup.com/'):
+            if not bool(re.match(r"^https://www\.meetup\.com/.+$", group)):
                 print('Please enter a valid URL')
                 browser.close()
                 exit()
