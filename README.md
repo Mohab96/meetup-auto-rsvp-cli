@@ -15,3 +15,13 @@ Everytime you want to RSVP events open the terminal and run this command `python
 # Important note
 
 This script works only with accounts that are created using the email and password, accounts created using Google, Facebook, etc. will not work.
+
+# Automatic Execution
+
+To run the script automatically every 30 minutes, follow these steps:
+
+1. Replace `path\to\your\script.py` in `run_script.bat` file with the actual path to `script.py`.
+
+2. Replace `path\to\your\run_script.bat` in `run_script_silently.vbs` file with the actual path to your `run_script.bat` file.
+
+3. To make this script run at startup, put the `run_script_silently.vbs` file in the Windows startup folder. You can open this folder by pressing `Win+R`, typing `shell:startup`, and hitting `Enter`. Then, just copy `run_script_silently.vbs` file into this folder.
