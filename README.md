@@ -1,3 +1,7 @@
+# Preview
+
+![preview](demo.mp4)
+
 # Introduction
 
 This is a simple CLI tool that can be used to RSVP events from groups the user is a member of automatically. The tool is written in Python and uses Selenium to automate the process of RSVPing events. The tool is designed to be used with Meetup.com, a popular platform for organizing events. The tool can be used to RSVP events from multiple groups at once, saving the user time and effort.
