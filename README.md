@@ -1,6 +1,6 @@
 # Preview
 
-![preview](demo.mp4)
+![preview]([demo.mp4](https://github.com/Mohab96/meetup-auto-rsvp-cli/blob/main/demo.mp4))
 
 # Introduction
 
