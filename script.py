@@ -10,20 +10,22 @@ from selenium.webdriver.remote.webelement import WebElement
 
 
 def get_element(browser: webdriver.Chrome, by: By, val: str) -> WebElement:
+    """
+    Get the element using the by and val provided. Wait for 5 seconds to ensure 
+    the page has been loaded and all the elements are present.
+    """
+
     time.sleep(5)
     # WebDriverWait(browser, 20).until(EC.presence_of_element_located((by, val)))
 
     return browser.find_element(by, val)
 
 
-def get_elements(browser: webdriver.Chrome, by: By, val: str) -> list[WebElement]:
-    time.sleep(5)
-    # WebDriverWait(browser, 20).until(EC.presence_of_element_located((by, val)))
-
-    return browser.find_elements(by, val)
-
-
 def login(email: str, password: str) -> None:
+    """
+    Login to the Meetup website using the email and password provided.
+    """
+
     browser.get(
         'https://www.meetup.com/login/?returnUri=https://www.meetup.com/groups/')
 
@@ -42,8 +44,13 @@ def login(email: str, password: str) -> None:
 
 
 def get_groups(browser: webdriver.Chrome) -> list[str]:
-    groups = get_elements(browser, By.CSS_SELECTOR,
-                          'li.flex.flex-col.justify-between')
+    """
+    Get the URLs of the groups that the user is a member of.
+    """
+
+    time.sleep(5)
+    groups = browser.find_elements(
+        By.CSS_SELECTOR, 'li.flex.flex-col.justify-between')
 
     group_urls = []
 
@@ -55,6 +62,10 @@ def get_groups(browser: webdriver.Chrome) -> list[str]:
 
 
 def not_RSVPed(browser: webdriver.Chrome, counter) -> bool:
+    """
+    Check if the user has RSVPed to the event with index counter on the page.
+    """
+
     xpath = f'//*[@id="event-card-e-{counter}"]/div[2]/div/div[2]/div/div/span'
 
     try:
@@ -66,6 +77,10 @@ def not_RSVPed(browser: webdriver.Chrome, counter) -> bool:
 
 
 def get_events(browser: webdriver.Chrome, group_urls: list[str]) -> list[str]:
+    """
+    Get the URLs of the events in group_urls that the user has not RSVPed to.
+    """
+
     events_urls = []
 
     for group_url in group_urls:
@@ -89,6 +104,10 @@ def get_events(browser: webdriver.Chrome, group_urls: list[str]) -> list[str]:
 
 
 def rsvp_to_events(browser: webdriver.Chrome, events: list[str]) -> None:
+    """
+    RSVP to all events in the list of events.
+    """
+
     for event in events:
         browser.get(event)
         get_element(browser, By.XPATH,
@@ -101,6 +120,10 @@ def rsvp_to_events(browser: webdriver.Chrome, events: list[str]) -> None:
 
 
 def success(browser: webdriver.Chrome) -> None:
+    """
+    Close the browser and print a success message to ensure that everything went well.
+    """
+
     print('RSVPed to all events successfully!')
     browser.close()
 
