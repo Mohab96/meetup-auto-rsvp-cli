@@ -14,7 +14,8 @@ Everytime you want to RSVP events open the terminal and run this command `python
 
 # Important note
 
-This script works only with accounts that are created using the email and password, accounts created using Google, Facebook, etc. will not work.
+- This script works only with accounts that are created using the email and password, accounts created using Google, Facebook, etc. will not work.
+- If the user wants to RSVP events from multiple groups not all the groups he joined, he can add the group name in the `GROUPS` list in the `.env` file.
 
 # Automatic Execution
 
