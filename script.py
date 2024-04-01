@@ -42,7 +42,16 @@ def login(email: str, password: str) -> None:
 
 
 def get_groups(browser: webdriver.Chrome) -> list[str]:
-    pass
+    groups = get_elements(browser, By.CSS_SELECTOR,
+                          'li.flex.flex-col.justify-between')
+
+    group_urls = []
+
+    for group in groups:
+        url = get_element(group, By.CSS_SELECTOR, 'a').get_attribute('href')
+        group_urls.append(url)
+
+    return group_urls
 
 
 def not_RSVPed(browser: webdriver.Chrome, counter) -> bool:
@@ -58,7 +67,8 @@ def rsvp_to_events(browser: webdriver.Chrome, events: list[str]) -> None:
 
 
 def success(browser: webdriver.Chrome) -> None:
-    pass
+    print('RSVPed to all events successfully!')
+    browser.close()
 
 
 if __name__ == '__main__':
