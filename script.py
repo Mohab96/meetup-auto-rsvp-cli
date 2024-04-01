@@ -55,15 +55,49 @@ def get_groups(browser: webdriver.Chrome) -> list[str]:
 
 
 def not_RSVPed(browser: webdriver.Chrome, counter) -> bool:
-    pass
+    xpath = f'//*[@id="event-card-e-{counter}"]/div[2]/div/div[2]/div/div/span'
+
+    try:
+        browser.find_element(By.XPATH, xpath)
+    except NoSuchElementException:
+        return True
+
+    return False
 
 
 def get_events(browser: webdriver.Chrome, group_urls: list[str]) -> list[str]:
-    pass
+    events_urls = []
+
+    for group_url in group_urls:
+        browser.get(group_url + '/events/')
+        RSVPed_events_counter = 1
+
+        while RSVPed_events_counter <= 10:
+            id = f'event-card-e-{RSVPed_events_counter}'
+
+            try:
+                event = browser.find_element(By.ID, id)
+
+                if not_RSVPed(browser, RSVPed_events_counter):
+                    events_urls.append(event.get_attribute('href'))
+            except NoSuchElementException:
+                break
+
+            RSVPed_events_counter += 1
+
+    return events_urls
 
 
 def rsvp_to_events(browser: webdriver.Chrome, events: list[str]) -> None:
-    pass
+    for event in events:
+        browser.get(event)
+        get_element(browser, By.XPATH,
+                    '//*[@id="main"]/div[4]/div/div/div[2]/div/div[2]/div[3]/button').click()
+        try:
+            get_element(
+                browser, By.XPATH, '//*[@id="modal"]/div/div[1]/div/div/div/div/div[2]/div/div/button').click()
+        except NoSuchElementException:
+            continue
 
 
 def success(browser: webdriver.Chrome) -> None:
