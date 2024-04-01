@@ -141,7 +141,19 @@ if __name__ == '__main__':
 
     login(email, password)
 
-    groups = os.getenv('GROUPS', get_groups(browser))
+    groups = os.getenv('GROUPS')
+
+    if groups is None:
+        groups = get_groups(browser)
+    else:
+        groups = groups.split(',')
+        groups = [group.strip() for group in groups]
+
+        for group in groups:
+            if not group.startswith('https://www.meetup.com/'):
+                print('Please enter a valid URL')
+                browser.close()
+                exit()
 
     try:
         events = get_events(browser, groups)
