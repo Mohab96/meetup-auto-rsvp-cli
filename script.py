@@ -141,10 +141,13 @@ if __name__ == '__main__':
 
     login(email, password)
 
-    groups = get_groups(browser)
+    groups = os.getenv('GROUPS', get_groups(browser))
 
-    events = get_events(browser, groups)
+    try:
+        events = get_events(browser, groups)
 
-    rsvp_to_events(browser, events)
-
-    success(browser)
+        rsvp_to_events(browser, events)
+    except:
+        print("Please double check the group URLs you entered and make sure you've joined them all")
+    else:
+        success(browser)
